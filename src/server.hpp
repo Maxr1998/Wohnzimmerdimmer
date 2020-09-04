@@ -1,6 +1,10 @@
-#ifndef SERVER_HPP_INCLUDED
-#define SERVER_HPP_INCLUDED
+#pragma once
 
+#include <Arduino.h>
+
+#include "ESPAsyncWebServer.h"
+
+#define EEPROM_BRIGHTNESS_ADDR 0
 #define LED_PIN 4
 
 void s_print(const char *msg, bool newline);
@@ -13,7 +17,6 @@ void s_println(int msg);
 
 void setup_server();
 
-String processor(const String& var);
+String processor(const String &var);
 void socket_event(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len);
 void on_404(AsyncWebServerRequest *request);
-#endif

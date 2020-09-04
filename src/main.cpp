@@ -1,14 +1,19 @@
+#include "main.hpp"
+
 #include <ArduinoOTA.h>
 
 #include "ESPAsyncWebServer.h"
 #include "FS.h"
-
-#include "main.hpp"
+#include "secrets.hpp"
 #include "server.hpp"
+
+#ifndef SSID
+#error "You need to define SSID, PASSWORD and OTA_PWD in secrets.hpp first!"
+#endif
 
 void setup() {
     pinMode(TX_PIN, OUTPUT);
-    digitalWrite(TX_PIN, HIGH); // Turn off the on-board LED
+    digitalWrite(TX_PIN, HIGH);  // Turn off the on-board LED
 
     Serial.begin(115200);
     setup_wifi();
@@ -55,11 +60,17 @@ void setup_ota() {
     });
     ArduinoOTA.onError([](ota_error_t error) {
         s_print("Error[" + String(error) + "]: ");
-        if (error == OTA_AUTH_ERROR)         s_println("Auth Failed");
-        else if (error == OTA_BEGIN_ERROR)   s_println("Begin Failed");
-        else if (error == OTA_CONNECT_ERROR) s_println("Connect Failed");
-        else if (error == OTA_RECEIVE_ERROR) s_println("Receive Failed");
-        else if (error == OTA_END_ERROR)     s_println("End Failed");
+        if (error == OTA_AUTH_ERROR) {
+            s_println("Auth Failed");
+        } else if (error == OTA_BEGIN_ERROR) {
+            s_println("Begin Failed");
+        } else if (error == OTA_CONNECT_ERROR) {
+            s_println("Connect Failed");
+        } else if (error == OTA_RECEIVE_ERROR) {
+            s_println("Receive Failed");
+        } else if (error == OTA_END_ERROR) {
+            s_println("End Failed");
+        }
     });
     ArduinoOTA.begin();
     Serial.println("OTA updater initialized");

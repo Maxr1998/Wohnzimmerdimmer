@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html class="mdc-typography">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="Wohnzimmerdimmer">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Wohnzimmerdimmer</title>
 
-        <link rel="stylesheet" href="https://unpkg.com/material-components-web@0.29.0/dist/material-components-web.min.css">
-    </head>
-    <body>
-        <main>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Wohnzimmerdimmer">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wohnzimmerdimmer</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@0.29.0/dist/material-components-web.min.css">
+</head>
+
+<body>
+    <main>
         <div style="padding: 0px 32px;">
             <h1 class="mdc-typography--display2">Wohnzimmerdimmer</h1>
-            <div id="brightness-slider" class="mdc-slider mdc-slider--discrete" tabindex="0" role="slider" aria-valuemin="1" aria-valuemax="5" aria-valuenow="%CURRENT_VALUE%" data-step="1" aria-label="Select Brightness">
+            <div id="brightness-slider" class="mdc-slider mdc-slider--discrete" tabindex="0" role="slider"
+                aria-valuemin="1" aria-valuemax="5" aria-valuenow="%CURRENT_VALUE%" data-step="1"
+                aria-label="Select Brightness">
                 <div class="mdc-slider__track-container">
                     <div class="mdc-slider__track"></div>
                 </div>
@@ -29,9 +33,9 @@
             </div>
             <div id="log" style="height: auto; margin-top: 48px; padding: 8px; background-color: #eeeeee;"></div>
         </div>
-        </main>
-        <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-        <script>
+    </main>
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script>
             'use strict';
             window.mdc.autoInit();
             const slider = new mdc.slider.MDCSlider(document.querySelector('#brightness-slider'));
@@ -51,11 +55,9 @@
                 ws.onmessage = function (event) {
                     var data = event.data;
                     console.log(data);
-                    var content = document.createTextNode(data);
+                    var content = document.createElement("p")
+                    content.innerText = data;
                     logs.appendChild(content);
-                    if (data.endsWith("\n")) {
-                        logs.appendChild("<br>");
-                    }
                 }
                 ws.onclose = function() {
                     console.log('closed!');
@@ -70,5 +72,6 @@
             start();
             setInterval(check, 5000);
         </script>
-    </body>
+</body>
+
 </html>
